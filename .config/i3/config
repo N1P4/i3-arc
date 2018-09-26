@@ -45,10 +45,10 @@ bindsym $mod+d exec rofi -show run -fake-transparency
 
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+ntilde focus right
+#bindsym $mod+j focus left
+#bindsym $mod+k focus down
+#bindsym $mod+l focus up
+#bindsym $mod+ntilde focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -57,10 +57,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+ntilde move right
+#bindsym $mod+Shift+j move left
+#bindsym $mod+Shift+k move down
+#bindsym $mod+Shift+l move up
+#bindsym $mod+Shift+ntilde move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -78,7 +78,7 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+Shift+s layout stacking
+#bindsym $mod+Shift+s layout stacking
 bindsym $mod+Shift+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -130,6 +130,22 @@ bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# suspend, logout, reboot,...
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3lock -i ~/.wallpaper.png, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id lock && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id lock && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+l mode "$mode_system"
 
 # lock
 bindsym $mod+Shift+x exec i3lock -i ~/.wallpaper.png
@@ -231,7 +247,7 @@ bindsym $mod+w exec "/usr/bin/firefox"
 bindsym $mod+n exec "/usr/bin/thunar"
 
 # Redirect sound to headphones
-bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
+#bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
 
 # Autostart apps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -240,9 +256,19 @@ exec --no-startup-id nm-applet
 exec --no-startup-id "nitrogen --restore"
 exec --no-startup-id "sleep 5s && kalu"
 exec_alwaysd compton
+exec --no-startup-id imwheel
+exec xautolock -time 15 -locker 'i3lock -i ~/.wallpaper.png'
+
+# Take screenshot
+bindsym --release $mod+s exec scrot -s 'scrot_%m-%d_%H:%M:%S_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
+bindsym $mod+Shift+s exec scrot -u 'scrot_%m-%d_%H:%M:%S_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
+
+# Open pavucontrol
+bindsym $mod+p exec pavucontrol -t 1
 
 # Set wallpaper
 exec_always feh --bg-scale ~/Pictures/wallpaper.jpg
+exec ~/.wp_lock.sh
 
 # Caps inicator
  bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
