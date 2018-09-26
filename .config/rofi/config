@@ -1,0 +1,17 @@
+rofi.color-window: argb:f02f343f, argb:f02f343f, argb:f02f343f
+rofi.color-normal: argb:00000000, #f3f4f5, argb:00000000, argb:00000000, #567eff
+rofi.color-urgent: argb:f02f343f, #cc6666, argb:e54b5160, #a54242, #f9f9f9
+rofi.color-active: argb:f02f343f, #65acff, argb:e44b5160, #4491ed, #f9f9f9
+rofi.width: 100
+rofi.lines: 10
+rofi.columns: 1
+rofi.font: System San Francisco Display 14
+#rofi.bw: 0
+rofi.padding: 100
+rofi.eh: 2
+#!rofi.separator-style: solid
+rofi.hide-scrollbar: true
+
+#-eh 2 -width 100 -padding 100 -font DejaVu\ Sans\ 13 -color-window 'argb:e0000000,argb:00000000,argb:00000000' -color-normal 'argb:00000000,#ffffff,argb:00000000,argb:00000000,#567eff' -fake-transparency -hide-scrollbar
+
+#.pid 12369
